@@ -7,9 +7,9 @@ connect();
 
 export const GET = async (req, { params }) => {
   try {
-    const prompts = await Prompt.find({ creator: params.userId }).populate(
-      'creator'
-    );
+    const prompts = await Prompt.find({ creator: params.userId })
+      .sort('-createdAt')
+      .populate('creator');
     return NextResponse.json({ prompts }, { status: StatusCodes.OK });
   } catch (error) {
     return NextResponse.json(
